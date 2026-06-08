@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { API_BASE } from "../../api";
 
 export default function RegistrationClosedPage() {
 
@@ -12,7 +13,7 @@ export default function RegistrationClosedPage() {
     useEffect(() => {
     const loadEvent = async () => {
         try {
-        const response = await fetch("http://localhost:8080/events");
+        const response = await fetch(`${API_BASE}/events`);
         const events = await response.json();
         if (events.length > 0) {
             setEvent(events[0]);

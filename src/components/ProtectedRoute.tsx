@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
+import { API_BASE } from "../api";
+
 
 type Props = {
   children: React.ReactNode;
@@ -12,7 +14,7 @@ export default function ProtectedRoute({ children }: Props) {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await fetch("http://localhost:8080/auth/me", {
+        const res = await fetch(`${API_BASE}/auth/me`, {
           credentials: "include",
         });
 

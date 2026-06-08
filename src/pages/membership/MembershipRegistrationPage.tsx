@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import type { SyntheticEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../styles/dark/membership.css";
+import { API_BASE } from "../../api";
 
 
 
@@ -43,7 +44,7 @@ export default function MembershipRegistrationPage() {
   useEffect(() => {
     const loadEvent = async () => {
       try {
-        const response = await fetch("http://localhost:8080/events/next");
+        const response = await fetch(`${API_BASE}/events/next`);
         const evt = await response.json();
         if (!evt) return;
 
@@ -109,7 +110,7 @@ export default function MembershipRegistrationPage() {
     }
 
     try {
-      const response = await fetch("http://localhost:8080/api/membership", {
+      const response = await fetch(`${API_BASE}/api/membership`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

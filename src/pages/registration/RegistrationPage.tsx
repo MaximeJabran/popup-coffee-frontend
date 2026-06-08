@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import type { SyntheticEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../styles/light/registration.css";
+import { API_BASE } from "../../api";
 
 // Build version: 1.0.2
 
@@ -9,8 +10,6 @@ import "../../styles/light/registration.css";
 
 export default function RegistrationPage() {
   const navigate = useNavigate();
-
-  const API = "https://popup-coffee-backend.onrender.com";
 
 
   // FORM STATE
@@ -36,7 +35,7 @@ export default function RegistrationPage() {
   const checkEventStatus = async () => {
     try {
       
-      const response = await fetch(`${API}/events/next`);
+      const response = await fetch(`${API_BASE}/events/next`);
 
       const evt = await response.json();
 
@@ -133,7 +132,7 @@ export default function RegistrationPage() {
 
     try {
   
-        const response = await fetch(`${API}/registrations`, {
+        const response = await fetch(`${API_BASE}/registrations`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import "./AdminDashboard.css";
+import { API_BASE } from "../../api";
+
 
 export default function AdminDashboard() {
 
@@ -25,7 +27,7 @@ export default function AdminDashboard() {
     const loadRegistrations = async () => {
       try {
         // Fetch all registrations from the backend API
-        const response = await fetch("http://localhost:8080/registrations");
+        const response = await fetch(`${API_BASE}/registrations`);
         const data = await response.json();
 
         // Save them into state (this triggers a re-render)
@@ -46,7 +48,7 @@ export default function AdminDashboard() {
   useEffect(() => {
   const loadMembers = async () => {
     try {
-      const res = await fetch("http://localhost:8080/api/membership/all");
+      const res = await fetch(`${API_BASE}/api/membership/all`);
 
       if (!res.ok) {
         throw new Error("Failed to load members");
@@ -68,7 +70,7 @@ export default function AdminDashboard() {
   // ---------------------------------------------------------
   const toggleArrived = async (id: number) => {
     // Call backend PATCH endpoint to toggle arrival
-    const response = await fetch(`http://localhost:8080/registrations/${id}/arrived`, {
+    const response = await fetch(`${API_BASE}/registrations/${id}/arrived`, {
       method: "PATCH"
     });
 
@@ -85,7 +87,7 @@ export default function AdminDashboard() {
   // Delete a registration from backend + remove from UI
   // ---------------------------------------------------------
   const deleteRegistration = async (id: number) => {
-    await fetch(`http://localhost:8080/api/registrations/${id}`, {
+    await fetch(`${API_BASE}/registrations/${id}`, {
       method: "DELETE",
     });
 
@@ -100,7 +102,7 @@ export default function AdminDashboard() {
 
   const approveMember = async (id: number) => {
     try {
-      const res = await fetch(`http://localhost:8080/api/membership/${id}/approve`, {
+      const res = await fetch(`${API_BASE}/api/membership/${id}/approve`, {
         method: "POST"
       });
 
@@ -117,7 +119,7 @@ export default function AdminDashboard() {
   };
 
     const deleteMember = async (id: number) => {
-    await fetch(`http://localhost:8080/api/membership/${id}`, {
+    await fetch(`${API_BASE}/api/membership/${id}`, {
       method: "DELETE",
     });
 
@@ -126,7 +128,7 @@ export default function AdminDashboard() {
 
     const handleLogout = async () => {
     try {
-      await fetch("http://localhost:8080/auth/logout", {
+      await fetch(`${API_BASE}/auth/logout`, {
         method: "POST",
         credentials: "include",
       });

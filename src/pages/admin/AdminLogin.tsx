@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { API_BASE } from "../../api";
+
 
 export default function AdminLogin() {
   const [username, setUsername] = useState("");
@@ -12,7 +14,7 @@ export default function AdminLogin() {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:8080/auth/login", {
+      const res = await fetch(`${API_BASE}/auth/login`, {
         method: "POST",
         credentials: "include", // important: send/receive cookies
         headers: {
