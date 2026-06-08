@@ -1,0 +1,165 @@
+/* ROOT LAYOUT */
+.admin-root {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+}
+
+.admin-container {
+  color: #b8b8b8;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+/* HEADER BAR */
+.admin-header {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 10px 20px;
+  background: #000;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 1px solid #111; /* subtle separation */
+}
+
+
+.admin-title {
+  color: #d0d0d0;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 20px 0 10px 0;
+  text-align: center; /* ⭐ center the title */
+}
+
+
+/* Logout button */
+.logout-btn {
+  background: #151515;
+  color: #b8b8b8; /* same text color as the dashboard */
+  border: 1px solid #333;
+  padding: 4px 10px;
+  font-size: 12px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-family: "Inter", sans-serif;
+}
+
+.logout-btn:hover {
+  background: #222;
+  border-color: #444;
+}
+
+
+/* TITLES */
+.admin-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.admin-subtitle {
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+/* TABLES (shared by registrations + members) */
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 40px; /* space between the two dashboards */
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 6px 8px;
+  font-size: 12px;
+}
+
+.admin-table th {
+  font-weight: 600;
+  background: #111;
+  color: #d0d0d0;
+  text-align: center;
+}
+
+.admin-table td:first-child {
+  text-align: left;
+}
+
+.admin-table td {
+  text-align: center;
+}
+
+.admin-table tr {
+  border: none;
+}
+
+.admin-table tr:hover {
+  background: #1a1a1a;
+}
+
+/* BUTTONS */
+.arrived-btn,
+.delete-btn,
+.approve-btn {
+  padding: 2px 6px;
+  font-size: 11px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+/* Arrived button */
+.arrived-btn {
+  background: #151515;
+  color: #8aff8a;
+  border: none;
+  width: 28px;
+  height: 17px;
+  line-height: 16px;
+  text-align: center;
+}
+
+.arrived-btn:hover {
+  background: #222;
+}
+
+.approve-btn {
+  background: #4caf50;
+  color: black;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 1px;
+  cursor: pointer;
+}
+
+.approve-btn:hover {
+  background: #43a047;
+  transform: scale(1.2);
+}
+
+
+.delete-icon-btn {
+  background: transparent;
+  color: #d0d0d0;
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+}
+
+.delete-icon-btn:hover {
+  color: #b71c1c;
+  transform: scale(2);
+}

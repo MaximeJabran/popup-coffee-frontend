@@ -1,0 +1,217 @@
+/* ____________________________________________________________MEMBERSHIP PAGE ROOT */
+.membership-page {
+  background: linear-gradient(180deg, #1A0033 0%, #3A0066 90%);
+  background-attachment: fixed;
+  padding: 24px;
+  min-height: 100vh;
+  color: #EAEAEA;
+}
+
+/* PAGE WRAPPER */
+.membership-page .page {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+/* ____________________________________________________________UNIVERSAL TEXT STYLE — DARK */
+.membership-page p,
+.membership-page span,
+.membership-page label,
+.membership-page li,
+.membership-page .hero-time,
+.membership-page .details p,
+.membership-page .details span,
+.membership-page .details strong,
+.membership-page .form label,
+.membership-page .form input,
+.membership-page .form span,
+.membership-page button,
+.membership-page .btn {     
+  font-size: 16px;
+  font-weight: 400;
+  color: #E0E0E0;
+  font-family: inherit; 
+}
+
+/* ____________________________________________________________STRONG TAG */
+.membership-page strong {
+  font-weight: inherit;
+  color: inherit;
+}
+
+/* ____________________________________________________________TITLES */
+.membership-page .title,
+.membership-page .hero-title,
+.membership-page .form-title,
+.membership-page .details h3,
+.membership-page .success-title {
+  font-weight: 600;
+  color: #00C8FF;
+  text-shadow: 0 0 8px rgba(0, 200, 255, 0.5);
+}
+
+.membership-page .title {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+/* ____________________________________________________________HEADER */
+.membership-page .header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.membership-page .logo {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  padding: 4px;
+}
+
+/* ___________________________________________________________CARDS */
+.membership-page .hero,
+.membership-page .form-section,
+.membership-page .details {
+  background: linear-gradient(
+    135deg,
+    rgba(122, 0, 255, 0.35),
+    rgba(0, 200, 255, 0.25)
+  );
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 28px;
+}
+
+/* ___________________________________________________________ FORM SECTION — PINK  */
+.membership-page .form-section {
+  background: linear-gradient(
+    135deg,
+    rgba(212, 0, 166, 0.473),
+    rgba(122, 0, 255, 0.85)
+  ) !important;
+}
+
+/* __________________________________________________________ FORM  */
+
+.membership-page .form input[type="text"],
+.membership-page .form input[type="date"],
+.membership-page .form input[type="email"],
+.membership-page .form input[type="tel"] {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(10, 10, 26, 0.7);
+  color: #EAEAEA;
+}
+
+.membership-page .form input:focus {
+  box-shadow: 0 0 8px rgba(0, 200, 255, 0.6);
+  outline: none;
+}
+
+.birthdate-input {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid #333;
+  border-radius: 6px;
+  background: #111;
+  color: #eee;
+}
+
+.birthdate-input:focus {
+  outline: none;
+  border-color: #666;
+}
+
+
+/* ____________________________________________________________ERROR BOX */
+.membership-page .error-box {
+  background: linear-gradient(135deg, #ff4d4d, #d62828);
+  color: #fff;
+  padding: 14px 18px;
+  border-radius: 10px;
+  margin-bottom: 18px;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(214, 40, 40, 0.35);
+  border-left: 4px solid #ffb3b3;
+  animation: fadeInError 0.25s ease-out;
+}
+
+@keyframes fadeInError {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+
+
+/* ____________________________________________________________BUTTON */
+.membership-page .btn {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(90deg, #FF2E88, #ff7b29e4);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.membership-page .btn:hover {
+  background: linear-gradient(90deg, #FF7A29, #FF2E88);
+  box-shadow: 0 0 18px rgba(255, 122, 41, 0.6);
+}
+
+/* ____________________________________________________________FOOTER */
+.membership-page .footer {
+  text-align: center;
+  color: #00C8FF;
+  margin-top: 20px;
+}
+
+/* ____________________________________________________________SUCCESS PAGE */
+.membership-page .success-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.membership-page .success-card {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 46, 136, 0.85),
+    rgba(122, 0, 255, 0.85),
+    rgba(0, 200, 255, 0.547)
+  );
+  padding: 40px 32px;
+  border-radius: 16px;
+  max-width: 360px;
+  text-align: center;
+}
+
+.membership-page .success-button {
+  display: block;          /* makes it behave like a button */
+  width: 100%;             /* full width like your other buttons */
+  text-align: center;      /* centers the text */
+  padding: 14px;           /* same padding as .btn */
+  background: linear-gradient(90deg, #FF2E88, #ff7b29da);
+  color: white;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  margin-top: 16px;        /* spacing above the button */
+  transition: background 0.2s ease;
+}
+
+.membership-page .success-button:hover {
+  background: linear-gradient(90deg, #FF7A29, #FF2E88);
+  box-shadow: 0 0 18px rgba(255, 122, 41, 0.6);
+}

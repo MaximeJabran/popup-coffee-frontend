@@ -1,0 +1,25 @@
+/* GLOBAL RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* GLOBAL FONT ONLY */
+body {
+  font-family: 'Poppins', system-ui, sans-serif;
+  line-height: 1.6;
+  color: #1A1A1A;
+}
+
+/* GLOBAL FORM SPACING (applies to both themes) */
+.form input,
+.form select,
+.form textarea {
+  margin-bottom: 10px;
+}
+
+.form label {
+  margin-bottom: 10px;
+  display: block;
+}
