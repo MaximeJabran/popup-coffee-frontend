@@ -8,6 +8,8 @@ import "../../styles/light/registration.css";
 export default function RegistrationPage() {
   const navigate = useNavigate();
 
+  const API = import.meta.env.VITE_API_BASE_URL;
+
   // FORM STATE
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -30,7 +32,9 @@ export default function RegistrationPage() {
   useEffect(() => {
   const checkEventStatus = async () => {
     try {
-      const response = await fetch("http://localhost:8080/events/next");
+      
+      const response = await fetch(`${API}/events/next`);
+
       const evt = await response.json();
 
       if (!evt) return;
@@ -125,7 +129,8 @@ export default function RegistrationPage() {
     }
 
     try {
-        const response = await fetch("http://localhost:8080/registrations", {
+  
+        const response = await fetch(`${API}/registrations`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
