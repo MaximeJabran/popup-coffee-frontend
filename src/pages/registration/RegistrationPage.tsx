@@ -3,7 +3,8 @@ import type { SyntheticEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../styles/light/registration.css";
 
-const BUILD_VERSION = "v1.0.1";
+// Build version: 1.0.2
+
 
 
 export default function RegistrationPage() {
