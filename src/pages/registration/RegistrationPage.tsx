@@ -8,7 +8,8 @@ import "../../styles/light/registration.css";
 export default function RegistrationPage() {
   const navigate = useNavigate();
 
-  const API = import.meta.env.VITE_API_BASE_URL;
+  const API = "https://popup-coffee-backend.onrender.com";
+
 
   // FORM STATE
   const [firstName, setFirstName] = useState("");
