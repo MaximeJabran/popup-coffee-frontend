@@ -3,6 +3,7 @@ import type { SyntheticEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../styles/light/registration.css";
 import { API_BASE } from "../../api";
+import { fetchWithTimeout } from "../../fetchWithTimeout";
 
 // Build version: 1.0.2
 
@@ -32,47 +33,56 @@ export default function RegistrationPage() {
 
   // ⭐ EVENT DATE LOGIC
   useEffect(() => {
-  const checkEventStatus = async () => {
-    try {
-      
-      const response = await fetch(`${API_BASE}/events/next`);
+    const checkEventStatus = async () => {
+      try {
+        // ⭐ Use timeout to avoid hanging when Render is cold
+        const response = await fetchWithTimeout(
+          `${API_BASE}/events/next`,
+          {},
+          8000 // 8 seconds timeout
+        );
 
-      const evt = await response.json();
+        const evt = await response.json();
 
-      if (!evt) return;
+        if (!evt) {
+          console.warn("No event returned from backend");
+          return;
+        }
 
-      setEvent(evt); // ⭐ store event for dynamic UI
+        setEvent(evt); // ⭐ store event for dynamic UI
 
-      // ⭐ Calculate countdown
-      const start = new Date(evt.startDate);
-      const today = new Date();
+        // ⭐ Calculate countdown
+        const start = new Date(evt.startDate);
+        const today = new Date();
 
-      start.setHours(0, 0, 0, 0);
-      today.setHours(0, 0, 0, 0);
+        start.setHours(0, 0, 0, 0);
+        today.setHours(0, 0, 0, 0);
 
-      const diffMs = start.getTime() - today.getTime();
-      const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+        const diffMs = start.getTime() - today.getTime();
+        const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
 
-      setDaysUntil(diffDays);
+        setDaysUntil(diffDays);
 
+        const eventDate = new Date(evt.startDate);
+        eventDate.setHours(0, 0, 0, 0);
 
-      const eventDate = new Date(evt.startDate);
+        // ⭐ Registration closed on event day or after
+        if (today >= eventDate) {
+          navigate("/closed");
+          return;
+        }
 
-      eventDate.setHours(0, 0, 0, 0);
+      } catch (err) {
+        console.error("Backend unreachable or too slow:", err);
 
-      // Registration closed on event day or after
-      if (today >= eventDate) {
-        navigate("/closed");
-        return;
+        // ⭐ Optional: show fallback UI instead of infinite loading
+        setEvent(null);
       }
+    };
 
-    } catch (err) {
-      console.error("Error loading event:", err);
-    }
-  };
-
-  checkEventStatus();
-}, [navigate]);
+    checkEventStatus();
+  }, [navigate]);
+ 
 
   // ⭐ RESET EMAIL WHEN OPT‑IN IS TURNED OFF
   useEffect(() => {
@@ -131,36 +141,41 @@ export default function RegistrationPage() {
     }
 
     try {
-  
-        const response = await fetch(`${API_BASE}/registrations`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      // ⭐ Use timeout to avoid Render cold-start hangs
+      const response = await fetchWithTimeout(
+        `${API_BASE}/registrations`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            eventId: event?.id, // ⭐ use real event ID
+            firstName,
+            lastName,
+            smsOptIn: smsNotification,
+            phone,
+            emailOptIn: emailNotification,
+            email,
+          }),
         },
-        body: JSON.stringify({
-          eventId: event?.id, // ⭐ use real event ID
-          firstName,
-          lastName,
-          smsOptIn: smsNotification,
-          phone,
-          emailOptIn: emailNotification,
-          email,
-        }),
-      });
-
+        8000 // ⭐ 8-second timeout
+      );
 
       if (!response.ok) {
-        throw new Error("Server error");
+        throw new Error(`Server returned ${response.status}`);
       }
 
       navigate("/success");
 
     } catch (err) {
-      setError("Something went wrong. Please try again.");
+      console.error("Registration request failed or timed out:", err);
+      setError("The server is taking too long to respond. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
   };
+
 
   return (
     <div className="light-page">
