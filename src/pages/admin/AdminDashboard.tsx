@@ -95,6 +95,30 @@ export default function AdminDashboard() {
     setRegistrations(prev => prev.filter(r => r.id !== id));
   };
 
+  
+  // ---------------------------------------------------------------  LOAD ACTIVE OTCs
+
+  const loadOtcs = async () => {
+    try {
+      const res = await fetch(`${API_BASE}/membership/admin/otc`, {
+        credentials: "include",
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to load OTCs");
+      }
+
+      const data = await res.json();
+      setOtcs(data);
+
+    } catch (err) {
+      console.error("Error loading OTCs:", err);
+    }
+  };
+
+  useEffect(() => {
+    loadOtcs();
+  }, []);
 
   // ---------------------------------------------------------------  GENERATE OTC
 
@@ -126,30 +150,6 @@ export default function AdminDashboard() {
     }
   };
 
-
-  // ---------------------------------------------------------------  LOAD ACTIVE OTCs
-
-  const loadOtcs = async () => {
-    try {
-      const res = await fetch(`${API_BASE}/membership/admin/otc`, {
-        credentials: "include",
-      });
-
-      if (!res.ok) {
-        throw new Error("Failed to load OTCs");
-      }
-
-      const data = await res.json();
-      setOtcs(data);
-
-    } catch (err) {
-      console.error("Error loading OTCs:", err);
-    }
-  };
-
-  useEffect(() => {
-    loadOtcs();
-  }, []);
 
   // ---------------------------------------------------------------  COPY OTC
   
