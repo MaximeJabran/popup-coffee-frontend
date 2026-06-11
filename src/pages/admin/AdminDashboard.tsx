@@ -38,13 +38,18 @@ export default function AdminDashboard() {
           credentials: "include"
         });
 
-        const data = await response.json();
+        if (!response.ok) {
+          console.error("Failed to load registrations:", response.status);
+          setRegistrations([]);        // prevent undefined
+          return;
+        }
 
-        setRegistrations(data);
+        const data = await response.json();
+        setRegistrations(Array.isArray(data) ? data : []);
 
       } catch (err) {
         console.error("Error loading registrations:", err);
-
+        setRegistrations([]);
       } finally {
         setLoading(false);
       }
@@ -53,10 +58,12 @@ export default function AdminDashboard() {
     loadRegistrations();
   }, []);
 
-  
-  // ---------------------------------------------------------------  LOADING SCREEN
+
+
+  // ---------------------------------------------------------------  CONDITIONAL RENDERING
 
   if (loading) return <p>Loading...</p>;
+  if (!registrations.length) return <p>No registrations found.</p>;
 
 
   // ---------------------------------------------------------------  REGISTRATION ARRIVED
