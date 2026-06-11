@@ -28,12 +28,20 @@ export default function AdminDashboard() {
   }, []);
 
 
+  // ---------------------------------------------------------------  LOADING SCREEN
+
+  if (loading) return <p>Loading...</p>;
+
   // ---------------------------------------------------------------  LOAD REGISTRATIONS
 
   useEffect(() => {
     const loadRegistrations = async () => {
       try {
-        const response = await fetch(`${API_BASE}/registrations/admin`);
+        const response = await fetch(`${API_BASE}/registrations/admin`, {
+          method: "GET",
+          credentials: "include"
+        });
+
         const data = await response.json();
 
         setRegistrations(data);
@@ -48,6 +56,37 @@ export default function AdminDashboard() {
 
     loadRegistrations();
   }, []);
+
+
+  // ---------------------------------------------------------------  REGISTRATION ARRIVED
+
+  const toggleArrived = async (id: number) => {
+    const response = await fetch(`${API_BASE}/registrations/admin/${id}/arrived`, {
+      method: "PATCH",
+      credentials: "include"
+    });
+
+
+    const updated = await response.json();
+
+    setRegistrations(registrations.map(r =>
+      r.id === id ? updated : r
+    ));
+  };
+
+
+  // ---------------------------------------------------------------  DELETE REGISTRATION
+
+  const deleteRegistration = async (id: number) => {
+    await fetch(`${API_BASE}/registrations/admin/${id}`, {
+      method: "DELETE",
+      credentials: "include"
+    });
+
+
+    setRegistrations(prev => prev.filter(r => r.id !== id));
+  };
+
 
   // ---------------------------------------------------------------  GENERATE OTC
 
@@ -140,7 +179,11 @@ export default function AdminDashboard() {
   useEffect(() => {
     const loadMembers = async () => {
       try {
-        const res = await fetch(`${API_BASE}/membership/admin/all`);
+        const res = await fetch(`${API_BASE}/membership/admin/all`, {
+          method: "GET",
+          credentials: "include"
+        });
+
 
         if (!res.ok) {
           throw new Error("Failed to load members");
@@ -158,37 +201,15 @@ export default function AdminDashboard() {
   }, []);
 
 
-
-  // ---------------------------------------------------------------  REGISTRATION ACTIONS
-
-  const toggleArrived = async (id: number) => {
-    const response = await fetch(`${API_BASE}/registrations/admin/${id}/arrived`, {
-      method: "PATCH"
-    });
-
-    const updated = await response.json();
-
-    setRegistrations(registrations.map(r =>
-      r.id === id ? updated : r
-    ));
-  };
-
-  const deleteRegistration = async (id: number) => {
-    await fetch(`${API_BASE}/registrations/admin/${id}`, {
-      method: "DELETE",
-    });
-
-    setRegistrations(prev => prev.filter(r => r.id !== id));
-  };
-
-
-  // ---------------------------------------------------------------  MEMBERSHIP ACTIONS
+  // ---------------------------------------------------------------  APPROVE MEMBER
 
   const approveMember = async (id: number) => {
     try {
       const res = await fetch(`${API_BASE}/membership/admin/${id}/approve`, {
-        method: "POST"
+        method: "POST",
+        credentials: "include"
       });
+
 
       const updated = await res.json();
 
@@ -201,10 +222,14 @@ export default function AdminDashboard() {
     }
   };
 
+  // ---------------------------------------------------------------  DELETE MEMBER
+
   const deleteMember = async (id: number) => {
     await fetch(`${API_BASE}/membership/admin/${id}`, {
       method: "DELETE",
+      credentials: "include"
     });
+
 
     setMembers(prev => prev.filter(m => m.id !== id));
   };
@@ -225,10 +250,6 @@ export default function AdminDashboard() {
     }
   };
 
-
-  // ---------------------------------------------------------------  LOADING SCREEN
-
-  if (loading) return <p>Loading...</p>;
 
 
   // ---------------------------------------------------------------  RENDER UI
