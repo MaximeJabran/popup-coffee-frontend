@@ -110,7 +110,7 @@ export default function MembershipRegistrationPage() {
     }
 
     try {
-      const response = await fetch(`${API_BASE}/api/membership`, {
+      const response = await fetch(`${API_BASE}/membership`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

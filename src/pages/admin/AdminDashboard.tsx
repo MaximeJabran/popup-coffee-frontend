@@ -33,7 +33,7 @@ export default function AdminDashboard() {
   useEffect(() => {
     const loadRegistrations = async () => {
       try {
-        const response = await fetch(`${API_BASE}/registrations`);
+        const response = await fetch(`${API_BASE}/registrations/admin`);
         const data = await response.json();
 
         setRegistrations(data);
@@ -55,7 +55,7 @@ export default function AdminDashboard() {
     try {
       setOtcLoading(true);
 
-      const res = await fetch(`${API_BASE}/admin/otc`, {
+      const res = await fetch(`${API_BASE}/membership/admin/generate-otc`, {
         method: "POST",
         credentials: "include",
       });
@@ -84,7 +84,7 @@ export default function AdminDashboard() {
 
   const loadOtcs = async () => {
     try {
-      const res = await fetch(`${API_BASE}/admin/otc`, {
+      const res = await fetch(`${API_BASE}/membership/admin/otc`, {
         credentials: "include",
       });
 
@@ -115,7 +115,7 @@ export default function AdminDashboard() {
   
   const revokeOtc = async (code: string) => {
     try {
-      const res = await fetch(`${API_BASE}/admin/otc/${code}`, {
+      const res = await fetch(`${API_BASE}/membership/admin/otc/${code}`, {
       method: "DELETE",
       credentials: "include",
     });
@@ -140,7 +140,7 @@ export default function AdminDashboard() {
   useEffect(() => {
     const loadMembers = async () => {
       try {
-        const res = await fetch(`${API_BASE}/api/membership/all`);
+        const res = await fetch(`${API_BASE}/membership/admin/all`);
 
         if (!res.ok) {
           throw new Error("Failed to load members");
@@ -162,7 +162,7 @@ export default function AdminDashboard() {
   // ---------------------------------------------------------------  REGISTRATION ACTIONS
 
   const toggleArrived = async (id: number) => {
-    const response = await fetch(`${API_BASE}/registrations/${id}/arrived`, {
+    const response = await fetch(`${API_BASE}/registrations/admin/${id}/arrived`, {
       method: "PATCH"
     });
 
@@ -174,7 +174,7 @@ export default function AdminDashboard() {
   };
 
   const deleteRegistration = async (id: number) => {
-    await fetch(`${API_BASE}/registrations/${id}`, {
+    await fetch(`${API_BASE}/registrations/admin/${id}`, {
       method: "DELETE",
     });
 
@@ -186,7 +186,7 @@ export default function AdminDashboard() {
 
   const approveMember = async (id: number) => {
     try {
-      const res = await fetch(`${API_BASE}/api/membership/${id}/approve`, {
+      const res = await fetch(`${API_BASE}/membership/admin/${id}/approve`, {
         method: "POST"
       });
 
@@ -202,7 +202,7 @@ export default function AdminDashboard() {
   };
 
   const deleteMember = async (id: number) => {
-    await fetch(`${API_BASE}/api/membership/${id}`, {
+    await fetch(`${API_BASE}/membership/admin/${id}`, {
       method: "DELETE",
     });
 
