@@ -13,35 +13,41 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminLogin from "./pages/admin/AdminLogin";
 import ProtectedRoute from "./components/ProtectedRoute";
 
+import { ErrorBoundary } from "./ErrorBoundary";
+
+
 import "./styles/global.css";
 
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        {/* Public registration pages */}
-        <Route path="/" element={<RegistrationPage />} />
-        <Route path="/success" element={<SuccessPage />} />
-        <Route path="/closed" element={<RegistrationClosedPage />} />
+    <ErrorBoundary>
+      <BrowserRouter>
+        <Routes>
+          {/* Public registration pages */}
+          <Route path="/" element={<RegistrationPage />} />
+          <Route path="/success" element={<SuccessPage />} />
+          <Route path="/closed" element={<RegistrationClosedPage />} />
 
-        {/* Public membership pages */}
-        <Route path="/membership/register" element={<MembershipRegistrationPage />} />
-        <Route path="/membership/success" element={<MembershipSuccessPage />} />
+          {/* Public membership pages */}
+          <Route path="/membership/register" element={<MembershipRegistrationPage />} />
+          <Route path="/membership/success" element={<MembershipSuccessPage />} />
 
-        {/* Admin login (public) */}
-        <Route path="/admin/login" element={<AdminLogin />} />
+          {/* Admin login (public) */}
+          <Route path="/admin/login" element={<AdminLogin />} />
 
-        {/* Admin dashboard (protected) */}
-        <Route
-          path="/admin"
-          element={
-            <ProtectedRoute>
-              <AdminDashboard />
-            </ProtectedRoute>
-          }
-        />
-      </Routes>
-    </BrowserRouter>
+          {/* Admin dashboard (protected) */}
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute>
+                <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </BrowserRouter>
+    </ErrorBoundary>
   </React.StrictMode>
 );
+
