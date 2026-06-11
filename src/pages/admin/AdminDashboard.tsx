@@ -28,10 +28,6 @@ export default function AdminDashboard() {
   }, []);
 
 
-  // ---------------------------------------------------------------  LOADING SCREEN
-
-  if (loading) return <p>Loading...</p>;
-
   // ---------------------------------------------------------------  LOAD REGISTRATIONS
 
   useEffect(() => {
@@ -56,6 +52,11 @@ export default function AdminDashboard() {
 
     loadRegistrations();
   }, []);
+
+  
+  // ---------------------------------------------------------------  LOADING SCREEN
+
+  if (loading) return <p>Loading...</p>;
 
 
   // ---------------------------------------------------------------  REGISTRATION ARRIVED
