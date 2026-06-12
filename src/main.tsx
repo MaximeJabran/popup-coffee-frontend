@@ -9,7 +9,7 @@ import RegistrationClosedPage from "./pages/registration/RegistrationClosedPage"
 import MembershipRegistrationPage from "./pages/membership/MembershipRegistrationPage";
 import MembershipSuccessPage from "./pages/membership/MembershipSuccessPage";
 
-import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminDashboard2 from "./pages/admin/AdminDashboard2";
 import AdminLogin from "./pages/admin/AdminLogin";
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -17,7 +17,6 @@ import { ErrorBoundary } from "./ErrorBoundary";
 
 
 import "./styles/global.css";
-import AdminDashboard2 from "./pages/admin/AdminDashboard2";
 
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
