@@ -17,6 +17,7 @@ import { ErrorBoundary } from "./ErrorBoundary";
 
 
 import "./styles/global.css";
+import AdminDashboard2 from "./pages/admin/AdminDashboard2";
 
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
@@ -41,7 +42,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             path="/admin"
             element={
               <ProtectedRoute>
-                <AdminDashboard />
+                <AdminDashboard2 />
               </ProtectedRoute>
             }
           />
