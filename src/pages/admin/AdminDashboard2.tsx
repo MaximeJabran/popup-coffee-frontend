@@ -203,7 +203,7 @@ export default function AdminDashboard2() {
           otcs={otcs}
           onGenerate={async () => {
             try {
-              const res = await fetch(`${API_BASE}/membership/admin/otc`, {
+              const res = await fetch(`${API_BASE}/membership/admin/generate-otc`, {
                 method: "POST",
                 credentials: "include",
               });
