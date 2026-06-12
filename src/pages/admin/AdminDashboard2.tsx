@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import { API_BASE } from "../../api";
+import RegistrationsTable from "../../components/admin/RegistrationsTable";
+
+
 
 // ---------------------------------------------------------------
 //  SAFE JSON PARSER (prevents React #310 from fetch failures)
@@ -107,13 +110,44 @@ export default function AdminDashboard2() {
       <h1>Admin Dashboard 2</h1>
 
       {/* -------------------------- Registrations Section */}
-      <section style={{ marginTop: 40 }}>
+        <section style={{ marginTop: 40 }}>
         <h2>Registrations</h2>
         <p>Total: {registrations.length}</p>
 
-        {/* Placeholder — add table later */}
-        <pre>{JSON.stringify(registrations, null, 2)}</pre>
-      </section>
+        <RegistrationsTable
+            registrations={registrations}
+            onToggleArrived={async (id) => {
+            try {
+                const res = await fetch(`${API_BASE}/registrations/admin/${id}/arrived`, {
+                method: "PATCH",
+                credentials: "include",
+                });
+
+                const updated = await res.json().catch(() => null);
+                if (!updated) return;
+
+                setRegistrations((prev) =>
+                prev.map((r) => (r.id === id ? updated : r))
+                );
+            } catch (err) {
+                console.error("Error toggling arrived:", err);
+            }
+            }}
+            onDelete={async (id) => {
+            try {
+                await fetch(`${API_BASE}/registrations/admin/${id}`, {
+                method: "DELETE",
+                credentials: "include",
+                });
+
+                setRegistrations((prev) => prev.filter((r) => r.id !== id));
+            } catch (err) {
+                console.error("Error deleting registration:", err);
+            }
+            }}
+        />
+        </section>
+
 
       {/* -------------------------- Members Section */}
       <section style={{ marginTop: 40 }}>
