@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { API_BASE } from "../../api";
+import "./AdminDashboard.css";
 import RegistrationsTable from "../../components/admin/RegistrationsTable";
+import MembersTable from "../../components/admin/MembersTable";
+
 
 
 
@@ -110,43 +113,43 @@ export default function AdminDashboard2() {
       <h1>Admin Dashboard 2</h1>
 
       {/* -------------------------- Registrations Section */}
-        <section style={{ marginTop: 40 }}>
-        <h2>Registrations</h2>
-        <p>Total: {registrations.length}</p>
+      <section style={{ marginTop: 40 }}>
+      <h2>Registrations</h2>
+      <p>Total: {registrations.length}</p>
 
-        <RegistrationsTable
-            registrations={registrations}
-            onToggleArrived={async (id) => {
-            try {
-                const res = await fetch(`${API_BASE}/registrations/admin/${id}/arrived`, {
-                method: "PATCH",
-                credentials: "include",
-                });
+      <RegistrationsTable
+          registrations={registrations}
+          onToggleArrived={async (id) => {
+          try {
+              const res = await fetch(`${API_BASE}/registrations/admin/${id}/arrived`, {
+              method: "PATCH",
+              credentials: "include",
+              });
 
-                const updated = await res.json().catch(() => null);
-                if (!updated) return;
+              const updated = await res.json().catch(() => null);
+              if (!updated) return;
 
-                setRegistrations((prev) =>
-                prev.map((r) => (r.id === id ? updated : r))
-                );
-            } catch (err) {
-                console.error("Error toggling arrived:", err);
-            }
-            }}
-            onDelete={async (id) => {
-            try {
-                await fetch(`${API_BASE}/registrations/admin/${id}`, {
-                method: "DELETE",
-                credentials: "include",
-                });
+              setRegistrations((prev) =>
+              prev.map((r) => (r.id === id ? updated : r))
+              );
+          } catch (err) {
+              console.error("Error toggling arrived:", err);
+          }
+          }}
+          onDelete={async (id) => {
+          try {
+              await fetch(`${API_BASE}/registrations/admin/${id}`, {
+              method: "DELETE",
+              credentials: "include",
+              });
 
-                setRegistrations((prev) => prev.filter((r) => r.id !== id));
-            } catch (err) {
-                console.error("Error deleting registration:", err);
-            }
-            }}
-        />
-        </section>
+              setRegistrations((prev) => prev.filter((r) => r.id !== id));
+          } catch (err) {
+              console.error("Error deleting registration:", err);
+          }
+          }}
+      />
+      </section>
 
 
       {/* -------------------------- Members Section */}
@@ -154,9 +157,40 @@ export default function AdminDashboard2() {
         <h2>Members</h2>
         <p>Total: {members.length}</p>
 
-        {/* Placeholder — add table later */}
-        <pre>{JSON.stringify(members, null, 2)}</pre>
+        <MembersTable
+          members={members}
+          onApprove={async (id) => {
+            try {
+              const res = await fetch(`${API_BASE}/membership/admin/${id}/approve`, {
+                method: "POST",
+                credentials: "include",
+              });
+
+              const updated = await res.json().catch(() => null);
+              if (!updated) return;
+
+              setMembers((prev) =>
+                prev.map((m) => (m.id === id ? updated : m))
+              );
+            } catch (err) {
+              console.error("Error approving member:", err);
+            }
+          }}
+          onDelete={async (id) => {
+            try {
+              await fetch(`${API_BASE}/membership/admin/${id}`, {
+                method: "DELETE",
+                credentials: "include",
+              });
+
+              setMembers((prev) => prev.filter((m) => m.id !== id));
+            } catch (err) {
+              console.error("Error deleting member:", err);
+            }
+          }}
+        />
       </section>
+
 
       {/* -------------------------- OTC Section */}
       <section style={{ marginTop: 40 }}>
