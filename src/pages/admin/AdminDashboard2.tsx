@@ -3,6 +3,8 @@ import { API_BASE } from "../../api";
 import "./AdminDashboard.css";
 import RegistrationsTable from "../../components/admin/RegistrationsTable";
 import MembersTable from "../../components/admin/MembersTable";
+import OtcSection from "../../components/admin/OtcSection";
+
 
 
 
@@ -197,9 +199,41 @@ export default function AdminDashboard2() {
         <h2>One-Time Codes</h2>
         <p>Total active: {otcs.length}</p>
 
-        {/* Placeholder — add list later */}
-        <pre>{JSON.stringify(otcs, null, 2)}</pre>
+        <OtcSection
+          otcs={otcs}
+          onGenerate={async () => {
+            try {
+              const res = await fetch(`${API_BASE}/membership/admin/otc`, {
+                method: "POST",
+                credentials: "include",
+              });
+
+              const newOtc = await res.json().catch(() => null);
+              if (!newOtc) return;
+
+              setOtcs((prev) => [...prev, newOtc]);
+            } catch (err) {
+              console.error("Error generating OTC:", err);
+            }
+          }}
+          onRevoke={async (id) => {
+            try {
+              await fetch(`${API_BASE}/membership/admin/otc/${id}`, {
+                method: "DELETE",
+                credentials: "include",
+              });
+
+              setOtcs((prev) => prev.filter((o) => o.id !== id));
+            } catch (err) {
+              console.error("Error revoking OTC:", err);
+            }
+          }}
+          onCopy={(code) => {
+            navigator.clipboard.writeText(code);
+          }}
+        />
       </section>
+
     </div>
   );
 }
